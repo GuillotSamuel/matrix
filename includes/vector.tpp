@@ -1,7 +1,8 @@
 #include "vector.hpp"
 
+
 template <typename T>
-Vector<T>::Vector(std::vector<T> data)
+Vector<T>::Vector(std::vector<T> data): data(std::move(data))
 {
 }
 
