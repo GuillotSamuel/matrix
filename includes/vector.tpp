@@ -105,7 +105,7 @@ std::ostream &operator<<(std::ostream &os, const Vector<T> &vector)
     os << "[";
     for (size_t i = 0; i < vector.data_vector.size(); i++)
     {
-        os << vector.data_vector[i];
+        os << std::fixed << std::setprecision(1) << vector.data_vector[i];
         if (i != vector.data_vector.size() - 1)
             os << ", ";
     }

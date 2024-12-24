@@ -124,7 +124,7 @@ std::ostream &operator<<(std::ostream &os, const Matrix<U> &matrix)
         size_t row_size = row.size();
         for (size_t i = 0; i < row_size; ++i)
         {
-            os << row[i];
+            os << std::fixed << std::setprecision(1) << row[i];
             if (i < row_size - 1)
                 os << ", ";
         }
