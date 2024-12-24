@@ -1,13 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <stdexcept>
-#include <iostream>
+#include "utils.hpp"
 
 template <typename T>
 class Vector {
     private:
-        std::vector<T> data;
+        std::vector<T> data_vector;
 
     public:
         Vector(std::vector<T> data);
@@ -15,16 +13,16 @@ class Vector {
 
         Vector operator+(const Vector &other);
         Vector operator-(const Vector &other);
-        Vector operator*(const Vector &other);
+        Vector operator*(const T &scalar) const;
         Vector &operator+=(const Vector &other);
         Vector &operator-=(const Vector &other);
-        Vector &operator*=(const Vector &other);
+        Vector &operator*=(const T &scalar);
         template <typename U>
         friend std::ostream &operator<<(std::ostream &os, const Vector<U> &vector);
 
         Vector &add(const Vector<T> &vector);
-        Vector &substract(const Vector<T> &vector);
-        Vector &scale(const Vector <T> &vector);
+        Vector &sub(const Vector<T> &vector);
+        Vector &scl(const T &vector);
 
         void check_validity(const Vector<T> &other);
 };

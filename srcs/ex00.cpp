@@ -10,6 +10,23 @@ int main()
             u.add(v);
             std::cout << u << std::endl;
         }
+        {
+            Vector<float> u({2., 3.});
+            const Vector<float> v({5., 7.});
+            u.sub(v);
+            std::cout << u << std::endl;
+        }
+        {
+            Vector<float> u({2., 3.});
+            u.scl(2.);
+            std::cout << u << std::endl;
+        }
+        {
+            Matrix<float> u({{1., 2.}, {3., 4.}});
+            const Matrix<float> v({{7., 4.}, {-2., 2.}});
+            u.add(v);
+            std::cout << u << std::endl;
+        }
     }
     catch(const std::exception &e)
     {
