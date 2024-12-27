@@ -1,13 +1,19 @@
 #include "vector.hpp"
 
-template <typename T>
-Vector<T>::Vector(std::vector<T> data): data_vector(std::move(data)) {}
+template <typename K>
+Vector<K>::Vector(std::vector<K> data): data_vector(std::move(data)) {}
 
 template <typename T>
-Vector<T>::~Vector() {}
+Vector<T>::Vector(std::initializer_list<T> list) : data_vector(list) {}
 
-template <typename T>
-void Vector<T>::check_validity(const Vector<T> &other)
+template <typename K>
+Vector<K>::Vector(size_t size, const K &value) : data_vector(size, value) {}
+
+template <typename K>
+Vector<K>::~Vector() {}
+
+template <typename K>
+void Vector<K>::check_validity(const Vector<K> &other)
 {
     if (this->data_vector.empty() || other.data_vector.empty())
         throw std::invalid_argument("Vectors must not be empty");
@@ -16,8 +22,8 @@ void Vector<T>::check_validity(const Vector<T> &other)
         throw std::invalid_argument("Vectors must have the same size");
 }
 
-template <typename T>
-Vector<T> &Vector<T>::operator+=(const Vector<T> &other)
+template <typename K>
+Vector<K> &Vector<K>::operator+=(const Vector<K> &other)
 {
     check_validity(other);
 
@@ -27,8 +33,8 @@ Vector<T> &Vector<T>::operator+=(const Vector<T> &other)
     return *this;
 }
 
-template <typename T>
-Vector<T> &Vector<T>::operator-=(const Vector<T> &other)
+template <typename K>
+Vector<K> &Vector<K>::operator-=(const Vector<K> &other)
 {
     check_validity(other);
 
@@ -38,8 +44,8 @@ Vector<T> &Vector<T>::operator-=(const Vector<T> &other)
     return *this;
 }
 
-template <typename T>
-Vector<T> &Vector<T>::operator*=(const T &scalar)
+template <typename K>
+Vector<K> &Vector<K>::operator*=(const K &scalar)
 {
     for (size_t i = 0; i < this->data_vector.size(); i++)
         this->data_vector[i] *= scalar;
@@ -47,8 +53,8 @@ Vector<T> &Vector<T>::operator*=(const T &scalar)
     return *this;
 }
 
-template <typename T>
-Vector<T> Vector<T>::operator+(const Vector<T> &other)
+template <typename K>
+Vector<K> Vector<K>::operator+(const Vector<K> &other)
 {
     check_validity(other);
 
@@ -60,8 +66,8 @@ Vector<T> Vector<T>::operator+(const Vector<T> &other)
     return result;
 }
 
-template <typename T>
-Vector<T> Vector<T>::operator-(const Vector<T> &other)
+template <typename K>
+Vector<K> Vector<K>::operator-(const Vector<K> &other)
 {
     check_validity(other);
 
@@ -73,34 +79,34 @@ Vector<T> Vector<T>::operator-(const Vector<T> &other)
     return result;
 }
 
-template <typename T>
-Vector<T> Vector<T>::operator*(const T &scalar) const
+template <typename K>
+Vector<K> Vector<K>::operator*(const K &scalar) const
 {
-    Vector<T> result(*this);
+    Vector<K> result(*this);
     result *= scalar;
     return result;
 }
 
-template <typename T>
-Vector<T> &Vector<T>::add(const Vector<T> &vector)
+template <typename K>
+Vector<K> &Vector<K>::add(const Vector<K> &vector)
 {
     return (*this += vector);
 }
 
-template <typename T>
-Vector<T> &Vector<T>::sub(const Vector<T> &vector)
+template <typename K>
+Vector<K> &Vector<K>::sub(const Vector<K> &vector)
 {
     return (*this -= vector);
 }
 
-template <typename T>
-Vector<T> &Vector<T>::scl(const T &scalar)
+template <typename K>
+Vector<K> &Vector<K>::scl(const K &scalar)
 {
     return (*this *= scalar);
 }
 
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const Vector<T> &vector)
+template <typename K>
+std::ostream &operator<<(std::ostream &os, const Vector<K> &vector)
 {
     os << "[";
     for (size_t i = 0; i < vector.data_vector.size(); i++)
@@ -112,3 +118,33 @@ std::ostream &operator<<(std::ostream &os, const Vector<T> &vector)
     os << "]";
     return os;
 }
+
+template <typename K>
+Vector<K> linear_combination(const std::vector<Vector<K>> &u, const std::vector<K> &coefs)
+{
+    if (u.size() != coefs.size())
+        throw std::invalid_argument("There should be the same number of coefficients and vectors.");
+
+    size_t vector_size = u[0].data_vector.size();
+    for (const auto &vec : u)
+    {
+        if (vec.data_vector.size() != vector_size)
+            throw std::invalid_argument("All vectors must have the same size.");
+    }
+
+    Vector<K> result(std::vector<K>(vector_size, 0));
+
+    for (size_t i = 0; i < u.size(); i++)
+    {
+        const auto &vec = u[i];
+        K coef = coefs[i];
+        
+        for (size_t j = 0; j < vector_size; j++)
+        {
+            result.data_vector[j] += vec.data_vector[j] * coef;
+        }
+    }
+
+    return result;
+}
+

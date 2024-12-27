@@ -2,29 +2,29 @@
 
 #include "utils.hpp"
 
-template <typename T>
+template <typename K>
 class Matrix {
     private:
-        std::vector<std::vector<T>> data_matrix;
+        std::vector<std::vector<K>> data_matrix;
 
     public:
-        Matrix(const std::vector<std::vector<T>> &data);
+        Matrix(const std::vector<std::vector<K>> &data);
         ~Matrix();
 
         Matrix operator+(const Matrix &other);
         Matrix operator-(const Matrix &other);
-        Matrix operator*(const T &scalar) const;
+        Matrix operator*(const K &scalar) const;
         Matrix &operator+=(const Matrix &other);
         Matrix &operator-=(const Matrix &other);
-        Matrix &operator*=(const T &scalar);
+        Matrix &operator*=(const K &scalar);
         template <typename U>
         friend std::ostream &operator<<(std::ostream &os, const Matrix<U> &matrix);
 
-        Matrix &add(const Matrix<T> &matrix);
-        Matrix &sub(const Matrix<T> &matrix);
-        Matrix &scl(const T &matrix);
+        Matrix &add(const Matrix<K> &matrix);
+        Matrix &sub(const Matrix<K> &matrix);
+        Matrix &scl(const K &matrix);
 
-        void check_validity(const Matrix<T> &other);
+        void check_validity(const Matrix<K> &other);
 };
 
 #include "matrix.tpp"

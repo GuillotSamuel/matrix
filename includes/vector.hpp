@@ -2,29 +2,36 @@
 
 #include "utils.hpp"
 
-template <typename T>
+template <typename K>
 class Vector {
-    private:
-        std::vector<T> data_vector;
-
     public:
-        Vector(std::vector<T> data);
+        std::vector<K> data_vector;
+
+        Vector(std::vector<K> data);
+        Vector(std::initializer_list<K> list);
+        Vector(size_t size, const K &value);
         ~Vector();
 
         Vector operator+(const Vector &other);
         Vector operator-(const Vector &other);
-        Vector operator*(const T &scalar) const;
+        Vector operator*(const K &scalar) const;
         Vector &operator+=(const Vector &other);
         Vector &operator-=(const Vector &other);
-        Vector &operator*=(const T &scalar);
+        Vector &operator*=(const K &scalar);
         template <typename U>
         friend std::ostream &operator<<(std::ostream &os, const Vector<U> &vector);
 
-        Vector &add(const Vector<T> &vector);
-        Vector &sub(const Vector<T> &vector);
-        Vector &scl(const T &vector);
+        Vector &add(const Vector<K> &vector);
+        Vector &sub(const Vector<K> &vector);
+        Vector &scl(const K &vector);
 
-        void check_validity(const Vector<T> &other);
+        void check_validity(const Vector<K> &other);
+        Vector linear_combination(const std::vector<Vector<K>> &u, const std::vector<K> &coefs);
+
+        auto begin() { return data_vector.begin(); }
+        auto end() { return data_vector.end(); }
+        auto begin() const { return data_vector.begin(); }
+        auto end() const { return data_vector.end(); }
 };
 
 #include "vector.tpp"

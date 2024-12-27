@@ -1,16 +1,16 @@
 #include "matrix.hpp"
 
-template <typename T>
-Matrix<T>::Matrix(const std::vector<std::vector<T>> &data)
+template <typename K>
+Matrix<K>::Matrix(const std::vector<std::vector<K>> &data)
 {
     data_matrix = data;
 }
 
-template <typename T>
-Matrix<T>::~Matrix() {}
+template <typename K>
+Matrix<K>::~Matrix() {}
 
-template <typename T>
-void Matrix<T>::check_validity(const Matrix<T> &other)
+template <typename K>
+void Matrix<K>::check_validity(const Matrix<K> &other)
 {
     if (data_matrix.size() != other.data_matrix.size() ||
         (data_matrix.size() > 0 && data_matrix[0].size() != other.data_matrix[0].size()))
@@ -19,11 +19,11 @@ void Matrix<T>::check_validity(const Matrix<T> &other)
     }
 }
 
-template <typename T>
-Matrix<T> Matrix<T>::operator+(const Matrix<T> &other)
+template <typename K>
+Matrix<K> Matrix<K>::operator+(const Matrix<K> &other)
 {
     this->check_validity(other);
-    Matrix<T> result(*this);
+    Matrix<K> result(*this);
 
     for (size_t i = 0; i < data_matrix.size(); i++)
     {
@@ -36,11 +36,11 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &other)
     return result;
 }
 
-template <typename T>
-Matrix<T> Matrix<T>::operator-(const Matrix<T> &other)
+template <typename K>
+Matrix<K> Matrix<K>::operator-(const Matrix<K> &other)
 {
     this->check_validity(other);
-    Matrix<T> result(*this);
+    Matrix<K> result(*this);
 
     for (size_t i = 0; i < data_matrix.size(); i++)
     {
@@ -53,10 +53,10 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &other)
     return result;
 }
 
-template <typename T>
-Matrix<T> Matrix<T>::operator*(const T &scalar) const
+template <typename K>
+Matrix<K> Matrix<K>::operator*(const K &scalar) const
 {
-    Matrix<T> result(*this);
+    Matrix<K> result(*this);
 
     for (size_t i = 0; i < data_matrix.size(); i++)
     {
@@ -69,8 +69,8 @@ Matrix<T> Matrix<T>::operator*(const T &scalar) const
     return result;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &other)
+template <typename K>
+Matrix<K> &Matrix<K>::operator+=(const Matrix<K> &other)
 {
     this->check_validity(other);
 
@@ -85,8 +85,8 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &other)
     return *this;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &other)
+template <typename K>
+Matrix<K> &Matrix<K>::operator-=(const Matrix<K> &other)
 {
     this->check_validity(other);
 
@@ -101,8 +101,8 @@ Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &other)
     return *this;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::operator*=(const T &scalar)
+template <typename K>
+Matrix<K> &Matrix<K>::operator*=(const K &scalar)
 {
     for (size_t i = 0; i < data_matrix.size(); i++)
     {
@@ -133,20 +133,20 @@ std::ostream &operator<<(std::ostream &os, const Matrix<U> &matrix)
     return os;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::add(const Matrix<T> &matrix)
+template <typename K>
+Matrix<K> &Matrix<K>::add(const Matrix<K> &matrix)
 {
     return *this += matrix;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::sub(const Matrix<T> &matrix)
+template <typename K>
+Matrix<K> &Matrix<K>::sub(const Matrix<K> &matrix)
 {
     return *this -= matrix;
 }
 
-template <typename T>
-Matrix<T> &Matrix<T>::scl(const T &scalar)
+template <typename K>
+Matrix<K> &Matrix<K>::scl(const K &scalar)
 {
     return *this *= scalar;
 }
