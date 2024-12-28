@@ -207,3 +207,22 @@ K Vector<K>::norm_inf() const
 
     return max_value;
 }
+
+template <typename K>
+float angle_cos(const Vector<K> &u, const Vector<K> &v)
+{
+    if (u.data_vector.size() != v.data_vector.size())
+        throw std::invalid_argument("Vectors must have the same size.");
+    
+    float dot_product = 0;
+    for (size_t i = 0; i < u.data_vector.size(); i++)
+        dot_product += u.data_vector[i] * v.data_vector[i];
+    
+    float norm_u = u.norm();
+    float norm_v = v.norm();
+
+    if (norm_u == 0 || norm_v == 0)
+        throw std::invalid_argument("Undefined behavior for zero vectors.");
+    
+    return (dot_product / (norm_u * norm_v));
+}

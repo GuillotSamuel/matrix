@@ -39,6 +39,8 @@ class Vector {
         K norm_1() const;
         K norm() const;
         K norm_inf() const;
+
+        float angle_cos(const Vector<K> &u, const Vector<K> &v);
 };
 
 #include "vector.tpp"
