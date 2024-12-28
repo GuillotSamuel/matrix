@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <iterator>
+#include <math.h>
 
 #include "utils.tpp"
 

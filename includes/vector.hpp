@@ -35,6 +35,10 @@ class Vector {
         auto end() { return data_vector.end(); }
         auto begin() const { return data_vector.begin(); }
         auto end() const { return data_vector.end(); }
+
+        K norm_1() const;
+        K norm() const;
+        K norm_inf() const;
 };
 
 #include "vector.tpp"

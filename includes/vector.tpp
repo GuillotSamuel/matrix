@@ -175,3 +175,35 @@ K Vector<K>::dot(const Vector<K> &v) const
 
     return result;
 }
+template <typename K>
+K Vector<K>::norm_1() const
+{
+    K result = 0;
+
+    for (const K &value : this->data_vector)
+        result += std::abs(value);
+
+    return result;
+}
+
+template <typename K>
+K Vector<K>::norm() const
+{
+    K result = 0;
+
+    for (const K &value : this->data_vector)
+        result += value * value;
+
+    return std::sqrt(result);
+}
+
+template <typename K>
+K Vector<K>::norm_inf() const
+{
+    K max_value = 0;
+    
+    for (const K &value : this->data_vector)
+        max_value = std::max(max_value, std::abs(value));
+
+    return max_value;
+}
