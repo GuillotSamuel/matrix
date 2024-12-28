@@ -1,3 +1,5 @@
+/* ---- LINEAR COMBINATION ---- */
+
 #include "../includes/matrix.hpp"
 #include "../includes/vector.hpp"
 

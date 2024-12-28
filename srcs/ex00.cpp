@@ -1,3 +1,5 @@
+/* ---- ADD, SUBSTRACT AND SCALE ---- */
+
 #include "../includes/matrix.hpp"
 #include "../includes/vector.hpp"
 

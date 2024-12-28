@@ -27,6 +27,8 @@ class Vector {
 
         void check_validity(const Vector<K> &other);
         Vector linear_combination(const std::vector<Vector<K>> &u, const std::vector<K> &coefs);
+        template <typename V>
+        Vector lerp(const Vector<V> &u, const Vector<V> &v, V t);
 
         auto begin() { return data_vector.begin(); }
         auto end() { return data_vector.end(); }

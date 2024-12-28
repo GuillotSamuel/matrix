@@ -7,6 +7,13 @@ Matrix<K>::Matrix(const std::vector<std::vector<K>> &data)
 }
 
 template <typename K>
+Matrix<K>::Matrix(std::initializer_list<std::initializer_list<K>> init) {
+    for (auto& row : init) {
+        data_matrix.push_back(std::vector<K>(row));
+    }
+}
+
+template <typename K>
 Matrix<K>::~Matrix() {}
 
 template <typename K>
@@ -149,4 +156,22 @@ template <typename K>
 Matrix<K> &Matrix<K>::scl(const K &scalar)
 {
     return *this *= scalar;
+}
+
+template <typename V>
+Matrix<V> lerp(const Matrix<V>& u, const Matrix<V>& v, V t)
+{
+    if (u.numRows() != v.numRows() || u.numCols() != v.numCols())
+        throw std::invalid_argument("Matrices must be of the same size.");
+
+    std::vector<std::vector<V>> result;
+    for (size_t i = 0; i < u.numRows(); ++i) {
+        std::vector<V> row;
+        for (size_t j = 0; j < u.numCols(); ++j) {
+            row.push_back(u.data_matrix[i][j] + t * (v.data_matrix[i][j] - u.data_matrix[i][j]));
+        }
+        result.push_back(row);
+    }
+
+    return Matrix<V>(result);
 }

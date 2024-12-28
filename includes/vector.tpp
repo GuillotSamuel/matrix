@@ -148,3 +148,15 @@ Vector<K> linear_combination(const std::vector<Vector<K>> &u, const std::vector<
     return result;
 }
 
+template <typename V>
+Vector<V> lerp(const Vector<V> &u, const Vector<V> &v, V t)
+{
+    if (u.data_vector.size() != v.data_vector.size())
+        throw std::invalid_argument("Vectors must be the same size.");
+
+    std::vector<V> result;
+    for (size_t i = 0; i < u.data_vector.size(); i++)
+        result.push_back(u.data_vector[i] + t * (v.data_vector[i] - u.data_vector[i]));
+
+    return Vector<V>(result);
+}

@@ -4,11 +4,11 @@
 
 template <typename K>
 class Matrix {
-    private:
+    public:
         std::vector<std::vector<K>> data_matrix;
 
-    public:
         Matrix(const std::vector<std::vector<K>> &data);
+        Matrix(std::initializer_list<std::initializer_list<K>> init);
         ~Matrix();
 
         Matrix operator+(const Matrix &other);
@@ -17,6 +17,7 @@ class Matrix {
         Matrix &operator+=(const Matrix &other);
         Matrix &operator-=(const Matrix &other);
         Matrix &operator*=(const K &scalar);
+
         template <typename U>
         friend std::ostream &operator<<(std::ostream &os, const Matrix<U> &matrix);
 
@@ -24,7 +25,13 @@ class Matrix {
         Matrix &sub(const Matrix<K> &matrix);
         Matrix &scl(const K &matrix);
 
+        size_t numRows() const { return data_matrix.size(); }
+        size_t numCols() const { return data_matrix.empty() ? 0 : data_matrix[0].size(); }
+
         void check_validity(const Matrix<K> &other);
+
+        template <typename V>
+        Matrix lerp(const Matrix<V> &u, const Matrix<V> &v, V t);
 };
 
 #include "matrix.tpp"
