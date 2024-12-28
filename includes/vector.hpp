@@ -41,6 +41,7 @@ class Vector {
         K norm_inf() const;
 
         float angle_cos(const Vector<K> &u, const Vector<K> &v);
+        Vector cross_product(const Vector<K> &u, const Vector<K> &v);
 };
 
 #include "vector.tpp"

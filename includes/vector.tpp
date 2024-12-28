@@ -226,3 +226,16 @@ float angle_cos(const Vector<K> &u, const Vector<K> &v)
     
     return (dot_product / (norm_u * norm_v));
 }
+
+template <typename K>
+Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
+{
+    if (u.data_vector.size() != 3 || v.data_vector.size() != 3)
+        throw std::invalid_argument("Vector must contain 3 values only (3D).");
+    
+    K x = u.data_vector[1] * v.data_vector[2] - u.data_vector[2] * v.data_vector[1];
+    K y = u.data_vector[2] * v.data_vector[0] - u.data_vector[0] * v.data_vector[2];
+    K z = u.data_vector[0] * v.data_vector[1] - u.data_vector[1] * v.data_vector[0];
+
+    return Vector<K>({x, y, z});
+}
