@@ -160,3 +160,18 @@ Vector<V> lerp(const Vector<V> &u, const Vector<V> &v, V t)
 
     return Vector<V>(result);
 }
+
+template <typename K>
+K Vector<K>::dot(const Vector<K> &v) const
+{
+    if (this->data_vector.size() != v.data_vector.size()) {
+        throw std::invalid_argument("Vectors must have the same size");
+    }
+
+    K result = 0;
+    for (size_t i = 0; i < this->data_vector.size(); ++i) {
+        result += this->data_vector[i] * v.data_vector[i];
+    }
+
+    return result;
+}
