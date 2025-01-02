@@ -16,9 +16,7 @@ int main()
             std::vector<float> coefficients = {10.0f, -2.0f, 0.5f};
 
             Vector<float> result = linear_combination(vectors, coefficients);
-            for (float value : result)
-                std::cout << "[" << value << "]" << std::endl;
-            std::cout << std::endl;
+            std::cout << result << std::endl;
         }
         {
             Vector<float> v1 = {1.0, 2.0, 3.0};
@@ -28,9 +26,7 @@ int main()
             std::vector<float> coefficients = {10.0f, -2.0f};
 
             Vector<float> result = linear_combination(vectors, coefficients);
-            for (float value : result)
-                std::cout << "[" << value << "]" << std::endl;
-            std::cout << std::endl;
+            std::cout << result << std::endl;
         }
     }
     catch(const std::exception& e)

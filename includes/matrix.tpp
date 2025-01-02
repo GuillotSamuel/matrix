@@ -125,18 +125,22 @@ Matrix<K> &Matrix<K>::operator*=(const K &scalar)
 template <typename U>
 std::ostream &operator<<(std::ostream &os, const Matrix<U> &matrix)
 {
-    for (const auto &row : matrix.data_matrix)
+    os << "[";
+    for (size_t i = 0; i < matrix.data_matrix.size(); ++i)
     {
         os << "[";
-        size_t row_size = row.size();
-        for (size_t i = 0; i < row_size; ++i)
+        const auto &row = matrix.data_matrix[i];
+        for (size_t j = 0; j < row.size(); ++j)
         {
-            os << std::fixed << std::setprecision(1) << row[i];
-            if (i < row_size - 1)
+            os << std::fixed << std::setprecision(1) << row[j];
+            if (j < row.size() - 1)
                 os << ", ";
         }
-        os << "]" << std::endl;
+        os << "]";
+        if (i < matrix.data_matrix.size() - 1)
+            os << "\n";
     }
+    os << "]";
     return os;
 }
 
@@ -175,3 +179,58 @@ Matrix<V> lerp(const Matrix<V>& u, const Matrix<V>& v, V t)
 
     return Matrix<V>(result);
 }
+
+template <typename K>
+void Matrix<K>::print_mat() const
+{
+    std::cout << "[\n";
+
+    for (size_t i = 0; i < this->data_matrix.rows(); ++i) {
+        std::cout << " [";
+
+        for (size_t j = 0; j < this->data_matrix.cols(); ++j) {
+            std::cout << this->data_matrix.data[i][j];
+            if (j < this->data_matrix.cols() - 1) {
+                std::cout << ", ";
+            }
+        }
+        std::cout << "]\n";
+    }
+    std::cout << "]\n";
+}
+
+// template <typename K>
+// Matrix<K> &Matrix<K>::mul_mat(const Matrix<K> &mat)
+// {
+//     if (this->data_matrix.cols() != mat.data_matrix.rows())
+//         throw std::invalid_argument("Matrix dimensions are not compatible with each other for multiplication.");
+
+//     std::vector<std::vector<K>> result(this->data_matrix.rows(), std::vector<K>(mat.data_matrix.cols(), 0));
+
+//     for (size_t i = 0; i < this->data_matrix.rows(); i++)
+//         for (size_t j = 0; j < mat->data_matrix.cols(); j++)
+//             for (size_t k = 0; k < this->data_matrix.cols(), k++)
+//                 retult[i][j] += this->data[i][k] * mat.data_matrix[k][j];
+
+//     this->data_matrix = result;
+
+//     return *this;
+// }
+
+// template <typename K>
+// Matrix<K> &Matrix<K>::mul_vec(const Vector<K> &vec)
+// {
+//     if (this->data_matrix.cols() != vec.data_vector.size())
+//         throw std::invalid_argument("Matrix dimensions are not compatible with vector dimensions for multiplication.");
+
+//     std::vector<K> result(this->data_matrix.rows(), 0);
+
+//     for (size_t i = 0; i < this->data_matrix.rows(); i++)
+//         for (size_t j = 0; j < this->data_matrix.cols(); j++)
+//             result[i] += this->data[i][j] * vec[j];
+
+//     this->data_matrix.clear();
+//     this->data_matrix.push_back(result);
+
+//     return *this;
+// }

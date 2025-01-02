@@ -239,3 +239,16 @@ Vector<K> cross_product(const Vector<K> &u, const Vector<K> &v)
 
     return Vector<K>({x, y, z});
 }
+
+template <typename K>
+void Vector<K>::print_vec() const
+{
+    std::cout << "[";
+    for (size_t i = 0; i < this->data_vector.size(); ++i) {
+        std::cout << this->data_vector.data[i];
+        if (i < this->data_vector.size() - 1) {
+            std::cout << ", ";
+        }
+    }
+    std::cout << "]" << std::endl;
+}

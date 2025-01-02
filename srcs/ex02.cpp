@@ -22,29 +22,12 @@ int main()
         {
             Vector<float> v1 = {2., 1.};
             Vector<float> v2 = {4., 2.};
-            Vector<float> resultVec = lerp(v1, v2, 0.3f);
-            for (auto val : resultVec)
-                std::cout << "[" << val << "] ";
-            std::cout << std::endl;
+            std::cout << lerp(v1, v2, 0.3f) << std::endl;
         }
         {
             Matrix<float> m1 = {{2., 1.}, {3., 4.}};
             Matrix<float> m2 = {{20., 10.}, {30., 40.}};
-            Matrix<float> resultMat = lerp(m1, m2, 0.5f);
-
-            std::cout << "[";
-            for (size_t i = 0; i < resultMat.numRows(); ++i) {
-                std::cout << "[";
-                for (size_t j = 0; j < resultMat.numCols(); ++j) {
-                    std::cout << resultMat.data_matrix[i][j];
-                    if (j < resultMat.numCols() - 1)
-                        std::cout << ", ";
-                }
-                std::cout << "]";
-                if (i < resultMat.numRows() - 1)
-                    std::cout << "\n";
-            }
-            std::cout << "]" << std::endl;
+            std::cout << lerp(m1, m2, 0.5f) << std::endl;
         }
     }
     catch(const std::exception& e)
