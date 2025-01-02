@@ -237,7 +237,7 @@ template <typename K>
 K Matrix<K>::trace()
 {
     if (numRows() != numCols())
-        throw std::invalid_argument("Matrix is not a square. The trace is not defined.")
+        throw std::invalid_argument("Matrix is not a square. The trace is not defined.");
 
     K result = K();
 
