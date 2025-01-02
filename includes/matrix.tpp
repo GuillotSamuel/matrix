@@ -232,3 +232,19 @@ Vector<K> Matrix<K>::mul_vec(const Vector<K> &vec) {
 
     return Vector<K>({result});
 }
+
+template <typename K>
+K Matrix<K>::trace()
+{
+    if (numRows() != numCols())
+        throw std::invalid_argument("Matrix is not a square. The trace is not defined.")
+
+    K result = K();
+
+    for (size_t i = 0; i < numRows(); ++i)
+    {
+        result += data_matrix[i][i];
+    }
+
+    return result;
+}
