@@ -199,38 +199,36 @@ void Matrix<K>::print_mat() const
     std::cout << "]\n";
 }
 
-// template <typename K>
-// Matrix<K> &Matrix<K>::mul_mat(const Matrix<K> &mat)
-// {
-//     if (this->data_matrix.cols() != mat.data_matrix.rows())
-//         throw std::invalid_argument("Matrix dimensions are not compatible with each other for multiplication.");
+template <typename K>
+Matrix<K> Matrix<K>::mul_mat(const Matrix<K> &mat) {
+    if (this->numCols() != mat.numRows())
+        throw std::invalid_argument("Matrix dimensions are not compatible with each other for multiplication.");
 
-//     std::vector<std::vector<K>> result(this->data_matrix.rows(), std::vector<K>(mat.data_matrix.cols(), 0));
+    std::vector<std::vector<K>> result(this->numRows(), std::vector<K>(mat.numCols(), 0));
 
-//     for (size_t i = 0; i < this->data_matrix.rows(); i++)
-//         for (size_t j = 0; j < mat->data_matrix.cols(); j++)
-//             for (size_t k = 0; k < this->data_matrix.cols(), k++)
-//                 retult[i][j] += this->data[i][k] * mat.data_matrix[k][j];
+    for (size_t i = 0; i < this->numRows(); i++) {
+        for (size_t j = 0; j < mat.numCols(); j++) {
+            for (size_t k = 0; k < this->numCols(); k++) {
+                result[i][j] += this->data_matrix[i][k] * mat.data_matrix[k][j];
+            }
+        }
+    }
 
-//     this->data_matrix = result;
+    return Matrix(result);
+}
 
-//     return *this;
-// }
+template <typename K>
+Vector<K> Matrix<K>::mul_vec(const Vector<K> &vec) {
+    if (this->numCols() != vec.data_vector.size())
+        throw std::invalid_argument("Matrix dimensions are not compatible with vector dimensions for multiplication.");
 
-// template <typename K>
-// Matrix<K> &Matrix<K>::mul_vec(const Vector<K> &vec)
-// {
-//     if (this->data_matrix.cols() != vec.data_vector.size())
-//         throw std::invalid_argument("Matrix dimensions are not compatible with vector dimensions for multiplication.");
+    std::vector<K> result(this->numRows(), 0);
 
-//     std::vector<K> result(this->data_matrix.rows(), 0);
+    for (size_t i = 0; i < this->numRows(); i++) {
+        for (size_t j = 0; j < this->numCols(); j++) {
+            result[i] += this->data_matrix[i][j] * vec.data_vector[j];
+        }
+    }
 
-//     for (size_t i = 0; i < this->data_matrix.rows(); i++)
-//         for (size_t j = 0; j < this->data_matrix.cols(); j++)
-//             result[i] += this->data[i][j] * vec[j];
-
-//     this->data_matrix.clear();
-//     this->data_matrix.push_back(result);
-
-//     return *this;
-// }
+    return Vector<K>({result});
+}

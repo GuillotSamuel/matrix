@@ -31,8 +31,8 @@ class Matrix {
         Matrix lerp(const Matrix<V> &u, const Matrix<V> &v, V t);
 
         /* Matrix operations */
-        Matrix mul_mat(const Matrix<K> &mat);
-        Matrix mul_vec(const Vector<K> &vec);
+        Matrix<K> mul_mat(const Matrix<K> &mat);
+        Vector<K> mul_vec(const Vector<K> &vec);
 
         /* Utils functions */
         void check_validity(const Matrix<K> &other);
