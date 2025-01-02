@@ -34,6 +34,7 @@ class Matrix {
         Matrix<K> mul_mat(const Matrix<K> &mat);
         Vector<K> mul_vec(const Vector<K> &vec);
         K trace();
+        Matrix<K> transpose();
 
         /* Utils functions */
         void check_validity(const Matrix<K> &other);

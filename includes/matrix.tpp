@@ -248,3 +248,17 @@ K Matrix<K>::trace()
 
     return result;
 }
+
+template <typename K>
+Matrix<K> Matrix<K>::transpose()
+{
+    std::vector<std::vector<K>> transposed_data(this->numCols(), std::vector<K>(this->numRows()));
+
+    for (size_t i = 0; i < this->numRows(); ++i) {
+        for (size_t j = 0; j < this->numCols(); ++j) {
+            transposed_data[j][i] = this->data_matrix[i][j];
+        }
+    }
+
+    return Matrix<K>(transposed_data);
+}
