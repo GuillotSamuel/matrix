@@ -38,6 +38,7 @@ class Matrix {
         Matrix<K> row_echelon();
         Matrix<K> row_echelon_non_reduced();
         Matrix<K> row_echelon_options(bool reduced);
+        K determinant();
 
         /* Utils functions */
         void check_validity(const Matrix<K> &other);

@@ -367,3 +367,20 @@ Matrix<K> Matrix<K>::row_echelon_non_reduced()
 {
     return row_echelon_options(false);
 }
+
+template <typename K>
+K Matrix<K>::determinant()
+{
+    if (this->numRows() != this->numCols())
+            throw std::invalid_argument("Matrix is not a square.");
+
+    K result = 1;
+    Matrix<K> tmp = this->row_echelon_non_reduced();
+
+    for (size_t i = 0; i < tmp.numRows(); i++)
+    {
+        result *= tmp.data_matrix[i][i];
+    }
+
+    return K(result);
+}
